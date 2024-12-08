@@ -181,25 +181,6 @@ export default {
 }  
 
 
-.carousel-inner {
-  position: relative;  /* 确保容器的定位 */
-  width: 100%;
-  height: 100%;  /* 让容器填充父元素的高度 */
-  overflow: hidden;  /* 防止溢出 */
-}
-
-.carousel-item img {
-  object-fit: cover; /* 保持比例填充 */
-  width: 100%;
-  height: 100%;
-}
-
-/* 确保.carousel-item填充.carousel-inner */
-.carousel-item {
-  position: relative;  /* 确保定位作用 */
-  width: 100%;  /* 宽度充满父容器 */
-  height: 100%;  /* 高度充满父容器 */
-}
 
 .btn  {
   border-bottom-left-radius: 0px;
@@ -212,13 +193,7 @@ export default {
   padding: 0;
   margin: 0;
   overflow: hidden; /* 确保内部内容不溢出 */
-  
 }
-
-
-
-
-
 
 .col-3 {
   border-bottom-left-radius: 10px;

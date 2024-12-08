@@ -32,7 +32,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
             <li>
-                <router-link class="dropdown-item" :to="{name: 'home_index'}">我的主页</router-link>
+                <router-link class="dropdown-item" :to="{name: 'user_center'}">我的主页</router-link>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" @click="logout">退出</a></li>

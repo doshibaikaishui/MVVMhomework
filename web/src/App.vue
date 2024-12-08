@@ -8,8 +8,7 @@
 import NavBar from "@/components/NavBar.vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
-import { onMounted } from 'vue';
-import { useStore } from 'vuex';
+
 
 export default {
   components:{
@@ -17,13 +16,7 @@ export default {
   },
 
   setup() {
-    const store = useStore();
-
-    onMounted(() => {
-      if (!store.state.user.is_login) {
-        store.dispatch('fetchUser'); // 页面加载时拉取用户信息
-      }
-    });
+    
   }
 }
 </script>

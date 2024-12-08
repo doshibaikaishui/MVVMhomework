@@ -6,8 +6,12 @@ import NotFound from '@/views/error/NotFound.vue'
 import UserAccountLoginView from '../views/user/account/UserAccountLoginView.vue'
 import UserAccountRegisterView from '../views/user/account/UserAccountRegisterView.vue'
 import store from '../store/index'
-
-
+import UserCenterView from '@/views/user/UserCenterView.vue'
+import RemuseView from '@/views/user/RemuseView.vue'
+import ApplyView from '@/views/user/ApplyView.vue'
+import OfferView from '@/views/user/OfferView.vue'
+import BossAccountRegisterView from '@/views/boss/account/BossAccountRegisterView.vue'
+import BossAccountLoginView from '@/views/boss/account/BossAccountLoginView.vue'
 
 const routes = [
   {
@@ -72,6 +76,50 @@ const routes = [
       requestAuth: false,
     }
   },
+  {
+    path: "/user/center/",
+    name: "user_center",
+    component: UserCenterView,
+    meta: {
+      requestAuth: false,
+    }
+  },
+  {
+    path: "/resume/",
+    name: "RemuseView",
+    component: RemuseView,
+  },
+  {
+    path: "/personal-info",
+    name: "PersonalInfo",
+    component: UserCenterView, // 复用你的个人信息页面
+  },
+  {
+    path: "/apply/",
+    name: "ApplyView",
+    component: ApplyView,
+  },
+  {
+    path: "/Offer/",
+    name: "OfferView",
+    component: OfferView,
+  },
+  {
+    path: "/boss/login/",
+    name: "bosslogin",
+    component: BossAccountLoginView,
+    meta: {
+      requestAuth: false,
+    }
+  },
+  {
+    path: "/boss/register/",
+    name: "bossregister",
+    component: BossAccountRegisterView,
+    meta: {
+      requestAuth: false,
+    }
+  }
 ]
 
 const router = createRouter({

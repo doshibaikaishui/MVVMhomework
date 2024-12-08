@@ -13,10 +13,6 @@ import java.util.Map;
 @Service
 public class InfoServiceImpl implements InfoService {
 
-    /**
-     * 根据token返回用户信息
-     * @return map存储的信息
-     */
     @Override
     public Map<String, String> getInfo() {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
@@ -29,8 +25,11 @@ public class InfoServiceImpl implements InfoService {
         map.put("id", user.getId().toString());
         map.put("username", user.getUsername());
         map.put("photo", user.getPhoto());
+        map.put("phone", user.getPhone());
+        map.put("email", user.getEmail());
+        map.put("gender", user.getGender());
+        map.put("real_name", user.getRealName());
         return map;
     }
 }
-
 

@@ -1,25 +1,44 @@
 <template>
     <ContentField>
-        <div class="row justify-content-md-center">
-            <div class="col-3">
-                <form @submit.prevent="register">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">用户名</label>
-                        <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <!-- 主框架 -->
+            <div class="card shadow-lg" style="width: 50%; min-width: 600px;background: linear-gradient(rgb(224,242,244), rgb(255,255,255));">
+                <!-- 顶部文字描述 -->
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>欢迎来到直荐无忧</h4>
+                    <p class="mb-0">准备开始拿Offer了吗？用户与招聘官可以通过此系统高效交流，共享工作机会。</p>
+                </div>
+
+                <div class="row g-0">
+                    <div class="col-md-6 p-4 border-end">
+                        <h5 class="text-center mb-4">用户注册</h5>
+                        <form @submit.prevent="register">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">用户名</label>
+                                <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">密码</label>
+                                <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmedPassword" class="form-label">密码</label>
+                                <input v-model="confirmedPassword" type="password" class="form-control" id="confirmedPassword" placeholder="请再次输入密码">
+                            </div>
+                            <div class="error-message">{{ error_message }}</div>
+                            <button type="submit" class="btn btn-success">提交</button>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">密码</label>
-                        <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码">
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmedPassword" class="form-label">密码</label>
-                        <input v-model="confirmedPassword" type="password" class="form-control" id="confirmedPassword" placeholder="请再次输入密码">
-                    </div>
-                    <div class="error-message">{{ error_message }}</div>
-                    <button type="submit" class="btn btn-primary">提交</button>
-                </form>
+                    <!-- 招聘官登录/注册部分 -->
+                 <div class="col-md-6 p-4 text-center">
+                    <h5 class="mb-4">招聘官入口</h5>
+                    <router-link  class="btn btn-outline-primary w-75 mb-3" :to="{name: 'bosslogin'}">招聘官登录</router-link>
+                    <router-link  class="btn btn-outline-secondary w-75" :to="{name: 'bossregister'}">招聘官注册</router-link>
+                </div>
+                </div>
+                 
+               </div>
             </div>
-        </div>
     </ContentField>
 </template>
 
@@ -78,6 +97,11 @@ button {
 div.error-message {
     color: red;
     justify-content: center;
+}
+
+.bg-primary {
+    background-color: white !important;
+    background: linear-gradient(45deg,rgb(31,38,44), rgb(0,180,179));
 }
 </style>
 
