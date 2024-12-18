@@ -1,6 +1,7 @@
 import $ from 'jquery'
 
 export default {
+  
     state: {
         id: "",
         username: "",
@@ -11,6 +12,9 @@ export default {
         phone: "",
         real_name: "",
         gender: "",
+        degree: "",
+        company_name: "",
+        age: "",
         is_login: false,
         pulling_info: true, //是否正在拉取信息
     },
@@ -25,7 +29,10 @@ export default {
             state.email = user.email;
             state.gender = user.gender;
             state.real_name = user.real_name;
-            state.phone = user.phone
+            state.phone = user.phone;
+            state.company_name = user.company_name;
+            state.degree = user.degree;
+            state.age = user.age;
         },
         updateToken(state, token) {
             state.token = token;
@@ -109,12 +116,13 @@ export default {
             real_name: data.real_name,
             email: data.email,
             phone: data.phone,
-            gender: data.gender
+            gender: data.gender,
+            degree: data.degree,
+            age: data.age,
           }),
           
           success(resp) {
             if (resp.error_message === "success") {
-                
                 const updatedUser = {
                     ...context.state,      // 保留现有用户数据
                     ...data,               // 前端传入的更新数据
@@ -131,6 +139,8 @@ export default {
           },
         });
       },
+
+
     },       
     modules: {
     }

@@ -6,7 +6,7 @@
                 <!-- 顶部文字描述 -->
                 <div class="card-header bg-primary text-white text-center py-3">
                     <h4>欢迎来到直荐无忧</h4>
-                    <p class="mb-0">准备开始拿Offer了吗？用户与招聘官可以通过此系统高效交流，共享工作机会。</p>
+                    <p class="mb-0">用户与招聘官可以通过此系统高效交流，共享工作机会。</p>
                 </div>
 
                 <div class="row g-0">
@@ -14,13 +14,13 @@
                     <div class="col-md-6 p-4 border-end">
                         <h5 class="text-center mb-4">用户登录</h5>
                         <form @submit.prevent="login">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">用户名</label>
+                            <div class="form-floating mb-3">
                                 <input v-model="username" type="text" class="form-control" id="username" placeholder="请输入用户名">
+                                <label for="username " class="form-label ">用户名</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">密码</label>
+                            <div class="form-floating mb-3">
                                 <input v-model="password" type="password" class="form-control" id="password" placeholder="请输入密码">
+                                <label for="password " class="form-label">密码</label>
                             </div>
                             <div class="error-message text-danger">{{ error_message }}</div>
                             <button type="submit" class="btn btn-success w-100 mt-3">提交</button>
@@ -30,7 +30,6 @@
                     <!-- 招聘官登录/注册部分 -->
                     <div class="col-md-6 p-4 text-center">
                         <h5 class="mb-4">招聘官入口</h5>
-                        <router-link  class="btn btn-outline-primary w-75 mb-3" :to="{name: 'bosslogin'}">招聘官登录</router-link>
                         <router-link  class="btn btn-outline-secondary w-75" :to="{name: 'bossregister'}">招聘官注册</router-link>
                     </div>
                 </div>

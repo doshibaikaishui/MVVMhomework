@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-dark text-light pt-4 pb-4" >
+    <footer class="bg-dark text-light pt-4 pb-4 " >
       <div class="container">
         <div class="row">
           <!-- 第一列：企业服务 -->
@@ -83,6 +83,7 @@
     margin-top: 60px;
     text-align: center;
   }
+  
 
   footer h5 {
     font-size: 18px;

@@ -4,10 +4,10 @@
     <div class="nav" style="text-align: center;">
       <div class="col-4">
         <span 
-          @click="setActiveTab('金融')" 
+          @click="setActiveTab('互联网/IT')" 
           class="btn" 
-          :class="{ active: activeTab === '金融' }">
-          金融
+          :class="{ active: activeTab === '互联网/IT' }">
+          互联网/IT
         </span>
       </div>
       <div class="col-4">
@@ -30,30 +30,30 @@
 
     <!-- 内容区域 -->
     <div class="container" style="margin-top: 30px">
-      <div v-if="activeTab === '金融'" class="row">
-        <div v-for="job in financeJobs" :key="job.id" class="col-12 col-md-4 mb-3">
-          <div class="job-card text-center">
-            <h5 class="job-title">{{ job.title }}</h5>
-            <p class="job-details">{{ job.details }}</p>
-            <span class="badge salary-badge">{{ job.salary }}</span>
+      <div v-if="activeTab === '互联网/IT'" class="row">
+        <div v-for="company in internetCompanies" :key="company.id" class="col-12 col-md-4 mb-3">
+          <div class="company-card text-center">
+            <h5 class="company-name">{{ company.name }}</h5>
+            <p class="company-details">{{ company.details }}</p>
+            <span class="badge industry-badge">{{ company.industry }}</span>
           </div>
         </div>
       </div>
       <div v-if="activeTab === '服务业'" class="row">
-        <div v-for="job in serviceJobs" :key="job.id" class="col-12 col-md-4 mb-3">
-          <div class="job-card text-center">
-            <h5 class="job-title">{{ job.title }}</h5>
-            <p class="job-details">{{ job.details }}</p>
-            <span class="badge salary-badge">{{ job.salary }}</span>
+        <div v-for="company in serviceCompanies" :key="company.id" class="col-12 col-md-4 mb-3">
+          <div class="company-card text-center">
+            <h5 class="company-name">{{ company.name }}</h5>
+            <p class="company-details">{{ company.details }}</p>
+            <span class="badge industry-badge">{{ company.industry }}</span>
           </div>
         </div>
       </div>
       <div v-if="activeTab === '客服/运营'" class="row">
-        <div v-for="job in customerJobs" :key="job.id" class="col-12 col-md-4 mb-3">
-          <div class="job-card text-center">
-            <h5 class="job-title">{{ job.title }}</h5>
-            <p class="job-details">{{ job.details }}</p>
-            <span class="badge salary-badge">{{ job.salary }}</span>
+        <div v-for="company in customerCompanies" :key="company.id" class="col-12 col-md-4 mb-3">
+          <div class="company-card text-center">
+            <h5 class="company-name">{{ company.name }}</h5>
+            <p class="company-details">{{ company.details }}</p>
+            <span class="badge industry-badge">{{ company.industry }}</span>
           </div>
         </div>
       </div>
@@ -65,18 +65,21 @@
 export default {
   data() {
     return {
-      activeTab: '金融', // 默认显示的内容
-      financeJobs: [
-        { id: 1, title: '金融分析师', details: '经验不限，学历不限', salary: '12-24K' },
-        { id: 2, title: '投资经理', details: '需经验2年以上', salary: '15-30K' },
+      activeTab: '互联网/IT', // 默认显示的内容
+      internetCompanies: [
+        { id: 1, name: '腾讯', details: '世界领先的互联网科技公司', industry: '互联网/IT' },
+        { id: 2, name: '阿里巴巴', details: '全球最大的在线和移动商务公司之一', industry: '互联网/IT' },
+        { id: 3, name: '网易', details: '互联网技术公司，提供互联网服务和内容', industry: '互联网/IT' },
       ],
-      serviceJobs: [
-        { id: 3, title: '酒店经理', details: '需管理经验', salary: '8-12K' },
-        { id: 4, title: '餐饮服务员', details: '经验不限', salary: '5-8K' },
+      serviceCompanies: [
+        { id: 4, name: '喜达屋酒店集团', details: '著名酒店管理公司', industry: '服务业' },
+        { id: 5, name: '海底捞', details: '知名餐饮连锁，提供高品质服务', industry: '服务业' },
+        { id: 6, name: '滴滴出行', details: '著名出行平台，提供打车、共享单车等服务', industry: '服务业' },
       ],
-      customerJobs: [
-        { id: 5, title: '客服专员', details: '在线服务', salary: '6-9K' },
-        { id: 6, title: '运营助理', details: '需熟悉电商平台', salary: '7-10K' },
+      customerCompanies: [
+        { id: 7, name: '京东', details: '领先的电商平台，提供优质的客服和售后服务', industry: '客服/运营' },
+        { id: 8, name: '淘宝', details: '全球最大的线上购物平台之一，提供良好的客服支持', industry: '客服/运营' },
+        { id: 9, name: '美团', details: '生活外卖服务平台，提供多种服务', industry: '客服/运营' },
       ],
     };
   },
@@ -89,7 +92,6 @@ export default {
 </script>
 
 <style scoped>
-
 .nav .col-4{
   border-bottom: 1px solid rgb(242,244,247);
 }
@@ -100,8 +102,6 @@ export default {
   color: rgb(102, 102, 102);
   font-size: 21px; 
 }
-
-
 
 .nav .col-4 .btn:hover {
   color: rgb(1, 190, 189);
@@ -115,10 +115,8 @@ export default {
   border-radius: 0px;
 }
 
-
-
-/* 职位卡片样式 */
-.job-card {
+/* 公司卡片样式 */
+.company-card {
   border: 1px solid #e3e3e3;
   border-radius: 8px;
   padding: 15px;
@@ -126,23 +124,23 @@ export default {
   background-color: #fff;
 }
 
-.job-card:hover {
+.company-card:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.job-title {
+.company-name {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.job-details {
+.company-details {
   color: #666;
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.salary-badge {
+.industry-badge {
   background-color: rgb(1, 190, 189);
   color: white;
   padding: 5px 10px;

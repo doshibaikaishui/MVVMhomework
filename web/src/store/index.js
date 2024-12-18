@@ -1,6 +1,8 @@
 import { createStore } from 'vuex'
 import ModuleUser from './user'
-
+import ModuleJob from "./job";
+import ModuleResume from "./remuse"
+import ModuleCompany from "./company"
 
 export default createStore({
   state: {
@@ -13,5 +15,8 @@ export default createStore({
   },
   modules: {
     user: ModuleUser,
+    job: ModuleJob,
+    resume: ModuleResume,
+    company: ModuleCompany,
   }
 })

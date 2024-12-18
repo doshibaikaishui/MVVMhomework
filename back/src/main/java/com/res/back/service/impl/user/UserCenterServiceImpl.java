@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class UserCenterServiceImpl implements UserCenterService {
@@ -17,10 +21,8 @@ public class UserCenterServiceImpl implements UserCenterService {
     private UserMapper userMapper;
 
     @Override
-    public Map<String, String> updateUserInfo(String userName,String realName, String email, String phone, String gender) {
+    public Map<String, String> updateUserInfo(String userName,String realName, String photo,String email, String phone, String gender, String degree, String age) {
         Map<String, String> response = new HashMap<>();
-
-
         // 获取当前登录用户的用户名
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName(); // 当前登录的用户名
@@ -46,6 +48,16 @@ public class UserCenterServiceImpl implements UserCenterService {
             response.put("message", "性别不能为空");
             return response;
         }
+        if (degree == null || degree.trim().equals("")) {
+            response.put("error_message", "error");
+            response.put("message", "学位不能为空");
+            return response;
+        }
+        if (age == null || age.trim().equals("")) {
+            response.put("error_message", "error");
+            response.put("message", "年龄不能为空");
+            return response;
+        }
 
         // 从数据库中查询用户
         User user = userMapper.findUserByUsername(username);
@@ -56,13 +68,16 @@ public class UserCenterServiceImpl implements UserCenterService {
         }
 
 
-        
+
 
         // 更新用户信息
         user.setRealName(realName);
+        user.setPhoto(photo);
         user.setEmail(email);
         user.setPhone(phone);
         user.setGender(gender);
+        user.setDegree(degree);
+        user.setAge(age);
 
 
 
@@ -81,4 +96,6 @@ public class UserCenterServiceImpl implements UserCenterService {
 
         return response;
     }
+
+
 }

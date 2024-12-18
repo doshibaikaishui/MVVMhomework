@@ -69,16 +69,15 @@ public class RegisterServiceImpl implements RegisterService {
             map.put("error_message", "用户名已存在");
             return map;
         }
-
         // 添加一个新用户
         String encodedPassword = passwordEncoder.encode(password);
         //输入自己的图片地址
         String photo = "******************************";
         User user = new User(null, username, encodedPassword, photo);
         userMapper.insert(user);
-
         map.put("error_message", "success");
         return map;
+
     }
 }
 

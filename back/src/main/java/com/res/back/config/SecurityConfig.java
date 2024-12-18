@@ -1,7 +1,6 @@
 package com.res.back.config;
 
 import com.res.back.config.filtter.JwtAuthenticationTokenFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,7 +36,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/account/token/", "/user/account/register/", "/boss/login/", "/boss/register/").permitAll()
+                        .requestMatchers("/user/account/token/", "/user/account/register/",  "/api/recruiters/register").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated());
 

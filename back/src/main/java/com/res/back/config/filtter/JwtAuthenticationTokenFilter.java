@@ -21,7 +21,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
-
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -49,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         User user = userMapper.selectById(Integer.parseInt(userid));
 
         if (user == null) {
-            throw new RuntimeException("用户名未登录");
+            throw new RuntimeException("用户未登录");
         }
 
         UserDetailsImpl loginUser = new UserDetailsImpl(user);
@@ -61,3 +60,4 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+

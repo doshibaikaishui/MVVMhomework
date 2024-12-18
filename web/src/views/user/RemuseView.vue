@@ -1,136 +1,201 @@
 <template>
-
-    <div class="container mt-4">
-        <h2 class="text-center text-primary">USER / Resume</h2>
+  <div class="container mt-4">
+    <!-- 主标题 -->
+    <h2 class="text-center text-primary mb-4">用户 / 简历</h2>
     <h5 class="text-center text-muted mb-4">个人简历</h5>
-    <div class="row">
-        <LeftNav></LeftNav>
-        <div class="col-9">
 
-        
-    <div class="container">
-        <!-- Header Section -->
-        <div class="resume-header">
-          <img src="profile.jpg" alt="Profile Picture" id="profile-photo">
-          <div>
-            <h2 id="name">张三</h2>
-            <p>性别: <span id="gender">男</span> | 年龄: <span id="age">22</span> | 学历: <span id="education">本科</span></p>
-            <p>电话: <span id="phone">13522342234</span> | 邮箱: <span id="email">85069866@qq.com</span></p>
+    <!-- 简历部分 -->
+    <div class="row">
+      <LeftNav></LeftNav>
+      <div class="col-9" style="min-height: 600px;">
+        <div v-if="resume && Object.keys(resume).length > 0">
+          <!-- 个人信息部分 -->
+          <div class="resume-header card p-4 mb-4">
+            <div class="d-flex align-items-center">
+              <img :src="user.photo" alt="头像" id="profile-photo" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+              <div class="ml-4">
+                <h2 id="name">{{ user.real_name }}</h2>
+                <p><strong>性别:</strong> <span id="gender">{{ user.gender }}</span> | 
+                   <strong>年龄:</strong> <span id="age">{{ user.age }}</span> | 
+                   <strong>学历:</strong> <span id="education">{{ user.degree }}</span></p>
+                <p><strong>电话:</strong> <span id="phone">{{ user.phone }}</span> | 
+                   <strong>邮箱:</strong> <span id="email">{{ user.email }}</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 编辑按钮 -->
+          <button v-if="!isEditing" class="btn btn-primary mb-3" @click="enableEditMode">
+            编辑简历
+          </button>
+
+          <!-- 编辑简历部分 -->
+          <div v-if="isEditing">
+            <div class="form-group mb-3">
+              <textarea v-model="editUser.advantages" class="form-control" placeholder="个人优势" rows="4"></textarea>
+            </div>
+            <div class="form-group mb-3">
+              <textarea v-model="editUser.intentions" class="form-control" placeholder="求职意向" rows="4"></textarea>
+            </div>
+            <div class="form-group mb-3">
+              <textarea v-model="editUser.school" class="form-control" placeholder="教育经历" rows="4"></textarea>
+            </div>
+            <div class="form-group mb-3">
+              <textarea v-model="editUser.experience" class="form-control" placeholder="工作经历" rows="4"></textarea>
+            </div>
+            <div class="d-flex">
+              <button class="btn btn-success mr-2" @click="saveResume">保存更改</button>
+              <button class="btn btn-secondary" @click="cancelEdit" style="margin-left: 10px;">取消</button>
+            </div>
+          </div>
+
+          <!-- 显示简历内容 -->
+          <div v-else>
+            <div class="resume-section mb-4">
+              <h3>个人优势</h3>
+              <p>{{ resume.advantages || '无' }}</p>
+            </div>
+            <div class="resume-section mb-4">
+              <h3>求职意向</h3>
+              <p>{{ resume.intentions || '无' }}</p>
+            </div>
+            <div class="resume-section mb-4">
+              <h3>教育经历</h3>
+              <p>{{ resume.school || '无' }}</p>
+            </div>
+            <div class="resume-section mb-4">
+              <h3>工作经历</h3>
+              <p>{{ resume.experience || '无' }}</p>
+            </div>
           </div>
         </div>
-    
-        <!-- Personal Advantages -->
-        <div class="resume-section">
-          <h3>个人优势 <span class="edit-btn text-primary" onclick="editSection('geren')">编辑</span></h3>
-          <p id="personal-advantages">对待工作责任心强，积极主动...</p>
-        </div>
-    
-        <!-- Job Intentions -->
-        <div class="resume-section">
-          <h3>求职意向 <span class="edit-btn text-primary" onclick="editSection('job')">编辑</span></h3>
-          <ul id="job-intentions">
-            <li>岗位: 前端工程师 | 地点: 深圳 | 薪资: 8-14K | 入职时间: 2个月</li>
-            <li>岗位: web前端开发工程师 | 地点: 广州 | 薪资: 7-13K | 入职时间: 1个月</li>
-          </ul>
-        </div>
-    
-        <!-- Work Experience -->
-        <div class="resume-section">
-          <h3>工作经历 <span class="edit-btn text-primary" onclick="editSection('work')">添加</span></h3>
-          <div id="work-experience">
-            <p>公司: 迅雷网络</p>
-            <p>职位: 前端工程师</p>
-            <p>时间: 2018.12 - 2020.06</p>
-            <p>描述: 参与开发...</p>
-          </div>
+
+        <!-- 如果简历为空，显示创建简历按钮 -->
+        <div v-else class="text-center">
+          <p>您还没有简历，点击下面的按钮创建简历。</p>
+          <router-link class="btn btn-primary" :to="{ name: 'resume_create' }">创建简历</router-link>
         </div>
       </div>
     </div>
-    </div>
-</div>
-  </template>
-  
-  <script>
-    import $ from 'jquery'
-    import LeftNav from '../../components/usercenter/LeftNav.vue'
+  </div>
 
-  export default {
-    components: {
-        LeftNav,
-    },
-    name: "RemuseView",
-    data() {
-      return {
-        user: {
-          name: "",
-          gender: "",
-          phone: "",
-          advantages: "",
-          jobIntent: "",
-          salary: ""
+  <BottomBox></BottomBox>
+</template>
+
+<script>
+import LeftNav from '../../components/usercenter/LeftNav.vue';
+import BottomBox from '@/components/bottombox/BottomBox.vue';
+
+export default {
+  components: {
+    LeftNav,
+    BottomBox
+  },
+  data() {
+    return {
+      user: {},
+      resume: {},
+      editUser: {
+        advantages: '',
+        intentions: '',
+        school: '',
+        experience: ''
+      },
+      isEditing: false
+    };
+  },
+  methods: {
+    // 获取用户信息
+    fetchUserData() {
+      this.$store.dispatch('resume/fetchUserData', {
+        success: (resp) => {
+          this.user = resp;
+        },
+        error: (err) => {
+          console.error("获取用户信息失败:", err);
         }
-      };
+      });
     },
-    methods: {
-      editPersonalInfo() {
-        this.$router.push("/personal-info");
-      },
-      editAdvantages() {
-        alert("跳转到编辑个人特长页面");
-      },
-      editJobIntentions() {
-        alert("跳转到编辑求职意向页面");
-      },
-      fetchResume() {
-        $.ajax({
-          url: "http://127.0.0.1:3000/resume/info/",
-          type: "get",
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token
-          },
-          success: (resp) => {
-            if (resp.error_message === "success") {
-              this.user = { ...resp.data };
-            } else {
-              console.error("Error fetching resume:", resp.error_message);
-            }
-          },
-          error: (err) => {
-            console.error("Request failed:", err);
-          }
+
+    // 获取简历信息
+    fetchResumeData() {
+      this.$store
+        .dispatch('resume/fetchResume')
+        .then((resp) => {
+          this.resume = resp || { advantages: '', intentions: '', school: '', experience: '' }; // 确保赋值
+        })
+        .catch((err) => {
+          console.error("获取简历信息失败:", err);
         });
-      }
     },
-    created() {
-      this.fetchResume();
+
+    // 启用编辑模式
+    enableEditMode() {
+      this.isEditing = true;
+      this.editUser = { ...this.resume }; // 加载简历数据到编辑对象
+    },
+
+    // 保存简历
+    saveResume() {
+      this.$store.dispatch('resume/updateResume', this.editUser)
+        .then(() => {
+          this.resume = { ...this.editUser };
+          alert('简历更新成功');
+          this.isEditing = false;
+        })
+        .catch((err) => {
+          console.error("更新简历失败:", err);
+        });
+    },
+
+    // 取消编辑
+    cancelEdit() {
+      this.isEditing = false;
+      this.editUser = { ...this.resume }; // 恢复原始数据
     }
-  };
-  </script>
-  
-  <style scoped>
-  .resume-header {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+  },
+  created() {
+    this.fetchUserData(); // 页面加载时获取用户信息
+    this.fetchResumeData(); // 页面加载时获取简历数据
   }
-  .resume-header img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-  .resume-section {
-    margin: 20px 0;
-  }
-  .resume-section h3 {
-    margin-bottom: 10px;
-    font-size: 1.25rem;
-  }
-  .edit-btn {
-    float: right;
-    cursor: pointer;
-  }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+/* 简历头部 */
+.resume-header {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  display: flex;
+  padding: 20px;
+}
+
+#profile-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* 简历内容部分 */
+.resume-section h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.resume-section p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* 编辑框 */
+textarea.form-control {
+  border-radius: 8px;
+  resize: none;
+}
+
+/* 按钮样式 */
+button {
+  margin-top: 10px;
+}
+</style>

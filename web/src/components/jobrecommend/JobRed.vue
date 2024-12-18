@@ -69,14 +69,17 @@ export default {
       financeJobs: [
         { id: 1, title: '金融分析师', details: '经验不限，学历不限', salary: '12-24K' },
         { id: 2, title: '投资经理', details: '需经验2年以上', salary: '15-30K' },
+        { id: 3, title: '资产管理经理', details: '需经验3年以上', salary: '20-40K' },
       ],
       serviceJobs: [
-        { id: 3, title: '酒店经理', details: '需管理经验', salary: '8-12K' },
-        { id: 4, title: '餐饮服务员', details: '经验不限', salary: '5-8K' },
+        { id: 4, title: '酒店经理', details: '需管理经验', salary: '8-12K' },
+        { id: 5, title: '餐饮服务员', details: '经验不限', salary: '5-8K' },
+        { id: 6, title: '客户关系经理', details: '需管理经验', salary: '10-15K' },
       ],
       customerJobs: [
-        { id: 5, title: '客服专员', details: '在线服务', salary: '6-9K' },
-        { id: 6, title: '运营助理', details: '需熟悉电商平台', salary: '7-10K' },
+        { id: 7, title: '客服专员', details: '在线服务', salary: '6-9K' },
+        { id: 8, title: '运营助理', details: '需熟悉电商平台', salary: '7-10K' },
+        { id: 9, title: '产品运营专员', details: '需经验1年以上', salary: '8-12K' },
       ],
     };
   },
@@ -89,19 +92,16 @@ export default {
 </script>
 
 <style scoped>
-
-.nav .col-4{
-  border-bottom: 1px solid rgb(242,244,247);
+.nav .col-4 {
+  border-bottom: 1px solid rgb(242, 244, 247);
 }
 
 /* 导航栏样式 */
 .nav .col-4 .btn {
   border: 0px;
   color: rgb(102, 102, 102);
-  font-size: 21px; 
+  font-size: 21px;
 }
-
-
 
 .nav .col-4 .btn:hover {
   color: rgb(1, 190, 189);
@@ -114,8 +114,6 @@ export default {
   border-bottom: 3px solid rgb(1, 190, 189); /* 下边框高亮 */
   border-radius: 0px;
 }
-
-
 
 /* 职位卡片样式 */
 .job-card {

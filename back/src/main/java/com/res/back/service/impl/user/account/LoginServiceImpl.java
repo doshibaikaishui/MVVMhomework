@@ -1,6 +1,7 @@
 package com.res.back.service.impl.user.account;
 
 import com.res.back.pojo.User;
+
 import com.res.back.service.impl.utils.UserDetailsImpl;
 import com.res.back.service.user.account.LoginService;
 import com.res.back.utils.JwtUtil;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -22,16 +24,22 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Map<String, String> getToken(String username, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-
-        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-        UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
-        User user = loginUser.getUser();
-        String jwt = JwtUtil.createJWT(user.getId().toString());
-
         Map<String, String> map = new HashMap<>();
-        map.put("error_message", "success");
-        map.put("token", jwt);
+        try {
+            Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+            UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
+            User user = loginUser.getUser();
+            String jwt = JwtUtil.createJWT(user.getId().toString());
 
+
+            map.put("error_message", "success");
+            map.put("token", jwt);
+
+            return map;
+        } catch (AuthenticationException e) {
+
+            // 你可以根据需要进一步处理异常
+        }
         return map;
     }
 }

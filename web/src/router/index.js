@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CompanyView from '../views/company/CompanyView.vue'
 import HomeView from '../views/home/HomeView.vue'
 import JobView from '../views/job/JobView.vue'
 import NotFound from '@/views/error/NotFound.vue'
@@ -11,7 +10,15 @@ import RemuseView from '@/views/user/RemuseView.vue'
 import ApplyView from '@/views/user/ApplyView.vue'
 import OfferView from '@/views/user/OfferView.vue'
 import BossAccountRegisterView from '@/views/boss/account/BossAccountRegisterView.vue'
-import BossAccountLoginView from '@/views/boss/account/BossAccountLoginView.vue'
+import JobManagementView from '@/views/boss/JobManagementView.vue'
+import InterviewView from '@/views/boss/InterviewView.vue'
+import ResumeManagementView from '@/views/boss/ResumeManagementView.vue'
+import JobDetailView from '@/views/job/JobDetailView.vue'
+import ResumeCreateView from '@/views/user/ResumeCreateView.vue'
+import CompanyView from '../views/company/CompanyView.vue'
+import CompanyDetailView from '@/views/company/CompanyDetailView.vue'
+import JobCreateView from '@/views/boss/JobCreateView.vue'
+import UserResume from '@/views/user/UserResume.vue'
 
 const routes = [
   {
@@ -49,6 +56,32 @@ const routes = [
     }
   },
   {
+    path: '/job/detail', // 职位详情页面
+    name: 'JobDetail',
+    component: JobDetailView,
+    props: route => ({ jobId: route.query.job_id }), // 将查询参数传递给 JobDetail 组件
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+    path: "/company/",
+    name: "company_index",
+    component: CompanyView,
+    meta: {
+      requestAuth: true,
+    },
+  },
+  {
+    path: '/company/detail',
+    name: 'CompanyDetail',
+    component: CompanyDetailView,
+    props: route => ({ companyId: route.query.company_id }),
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
     path: "/404/",
     name: "404",
     component: NotFound,
@@ -81,35 +114,39 @@ const routes = [
     name: "user_center",
     component: UserCenterView,
     meta: {
-      requestAuth: false,
+      requestAuth: true,
     }
   },
   {
     path: "/resume/",
     name: "RemuseView",
     component: RemuseView,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
-    path: "/personal-info",
-    name: "PersonalInfo",
-    component: UserCenterView, // 复用你的个人信息页面
+    path: "/resume/detail/",
+    name: "resume_detail",
+    component: UserResume,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/apply/",
     name: "ApplyView",
     component: ApplyView,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/Offer/",
     name: "OfferView",
     component: OfferView,
-  },
-  {
-    path: "/boss/login/",
-    name: "bosslogin",
-    component: BossAccountLoginView,
     meta: {
-      requestAuth: false,
+      requestAuth: true,
     }
   },
   {
@@ -119,12 +156,52 @@ const routes = [
     meta: {
       requestAuth: false,
     }
-  }
+  },
+  {
+    path: "/boss/center/",
+    name: "boss_center",
+    component: JobManagementView,
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+    path: "/boss/interview/",
+    name: "boss_interview",
+    component: InterviewView,
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+    path: "/boss/resume/",
+    name: "boss_resume",
+    component: ResumeManagementView,
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+      path: "/resume/create/",
+      name: "resume_create",
+      component: ResumeCreateView,
+      meta: {
+        requestAuth: true,
+      }
+  },
+  {
+    path: "/boss/resume/create/",
+    name: "boss_resume_create",
+    component: JobCreateView,
+    meta: {
+      requestAuth: true,
+    }
+  },
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 })
 
 router.beforeEach((to, from, next) => {

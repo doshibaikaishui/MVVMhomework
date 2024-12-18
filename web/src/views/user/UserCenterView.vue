@@ -71,9 +71,31 @@
               id="gender"
               v-model="editableUser.gender"
             >
-              <option value="male">男</option>
-              <option value="female">女</option>
-              <option value="other">其他</option>
+              <option value="男">男</option>
+              <option value="女">女</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">年龄</label>
+            <input
+              type="age"
+              class="form-control"
+              id="age"
+              v-model="editableUser.age"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="degree" class="form-label">学历</label>
+            <select
+              class="form-select"
+              id="degree"
+              v-model="editableUser.degree"
+            >
+              <option value="本科">本科</option>
+              <option value="专科">专科</option>
+              <option value="专科以下">专科以下</option>
+              <option value="硕士">硕士</option>
+              <option value="博士">博士</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">保存修改</button>
@@ -81,16 +103,19 @@
       </div>
     </div>
   </div>
+  <BottomBox></BottomBox>
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { computed, ref, onMounted } from "vue";
 import LeftNav from '../../components/usercenter/LeftNav.vue'
+import BottomBox from "@/components/bottombox/BottomBox.vue";
 
 export default {
   components: {
     LeftNav,
+    BottomBox,
   },
   setup() {
     const store = useStore();
@@ -121,6 +146,8 @@ export default {
               email: resp.email,
               phone: resp.phone,
               gender: resp.gender,
+              degree: resp.degree,
+              age: resp.age,
             };
           },
           error() {
@@ -134,6 +161,8 @@ export default {
           email: user.value.email,
           phone: user.value.phone,
           gender: user.value.gender,
+          degree: user.value.degree,
+          age: user.value.age,
         };
       }
     });

@@ -4,7 +4,7 @@
       <div class="container-fluid  d-flex justify-content-center ">
         <form class="d-flex justify-content-center w-100 " role="search">
           <input class="form-control custom-input w-100 " type="search" placeholder="搜索职位、公司" aria-label="Search">
-          <button type="submit" class="btn btn-primary " >搜索</button>
+          <router-link class="btn btn-primary" :to="{name: 'job_index'}" style="padding-top: 13px;">搜索</router-link>
         </form>
       </div>
     </nav>
@@ -82,7 +82,7 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active "  data-bs-interval="3000">
             <img src="../../assets/img/image1.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
@@ -133,6 +133,7 @@ import ContentField from '../../components/ContentField.vue'
 import JobRed from '@/components/jobrecommend/JobRed.vue';
 import CompanyRed from '@/components/companyrecommend/CompanyRed.vue'
 import BottomBox from '@/components/bottombox/BottomBox.vue';
+import { Carousel } from 'bootstrap';
 
 export default {
   components : {
@@ -141,7 +142,9 @@ export default {
     CompanyRed,
     BottomBox
   },
-  
+  onMounted() {
+    new Carousel(document.querySelector('#carouselExampleIndicators'));
+  },
 };
   
 </script>
